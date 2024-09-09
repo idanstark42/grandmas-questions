@@ -3,10 +3,11 @@ import { Icon, Divider, Segment, Progress } from 'semantic-ui-react'
 import Cookie from 'js-cookie'
 import './App.css';
 
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzUFzcKow2b8fOPKboaRQe4dVO5vxAlsrIV1COhGP1ooLVTjJVMPUnKAErMqEMjK_8E/exec?action=load'
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbz_lJ4-IMPjSB-y94Vw9bM93CQgvuZ0_Sl9077s2ew8BYwGMCOL8J_GF0P-WGSHzkxi/exec?action=load'
 
 function App() {
   const [questions, setQuestions] = useState([])
+  const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [showingAnswer, setShowingAnswer] = useState(false)
@@ -33,8 +34,9 @@ function App() {
   useEffect(() => {
     (async () => {
       const response = await fetch(BACKEND_URL)
-      const { questions } = await response.json()
+      const { questions, results } = await response.json()
       setQuestions(questions)
+      setResults(results)
       loadResponses()
       setLoading(false)
     })()
@@ -68,6 +70,7 @@ function App() {
     // show results
     const correct = responses.filter(response => response === true).length
     const incorrect = responses.filter(response => response === false).length
+    const resultMessage = (results.find(result => result.score === correct) || results.find(result => result.score === 'default')).message
 
     return <div className='center aligned' style={{ backgroundColor: '#AAAAAA', height: '100%', display: 'flex', flexDirection: 'column', padding: '1rem', gap: '1rem' }}>
       <h1 style={{ textAlign: 'center' }}>Results</h1>
@@ -76,6 +79,7 @@ function App() {
           <h3>You got</h3>
           <h1 style={{ backgroundColor: '#2185d0', color: 'white', padding: '1rem', borderRadius: '50%', aspectRatio: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 0  }}>{correct}/{correct + incorrect}</h1>
           <h3>questions correct</h3>
+          <h4>{resultMessage}</h4>
         </div>
       </Segment>
       <Segment raised style={{ margin: '-1rem', borderRadius: 0 }}>
