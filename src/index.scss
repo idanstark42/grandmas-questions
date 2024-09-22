@@ -3,6 +3,18 @@ html, body, #root, .container {
   width: 100%;
   margin: 0 !important;
   padding: 0;
+  background: #061c30;
+  color: rgb(204, 204, 204);
+  direction: rtl;
+}
+
+@import 'loaders.css/src/animations/ball-scale.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
 }
 
 * {
