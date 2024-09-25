@@ -89,7 +89,7 @@ function App() {
           <h1 style={{ color: 'rgb(71, 190, 199)', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 0  }}>{correct}/{correct + incorrect}</h1>
           <h3 style={{ margin: 0 }}>שאלות</h3>
         </div>
-        <h3>{resultMessage}</h3>
+        <h2>{resultMessage}</h2>
       </div>
       <div style={{ height: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '1rem', position: 'relative' }}>
         <button className='ui huge fluid button' style={{ height: '4rem', width: '100%', margin: 0 }} onClick={restart}>אתחל</button>
